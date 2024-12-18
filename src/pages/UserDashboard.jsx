@@ -1,42 +1,64 @@
+/* -------------------------------------------------------------------------- */
+/*                                   IMPORT                                   */
+/* -------------------------------------------------------------------------- */
+
 import { useParams } from 'react-router-dom';
-import usersData from '../data/mock/user.js';
-import usersActivity from '../data/mock/userActivity.js';
-import usersSessions from '../data/mock/userAverageSessions.js';
-import usersPerformance from '../data/mock/userPerformance.js';
 import SideBar from '../components/SideBar.jsx';
 import Activity from '../components/Activity.jsx';
+import apiService from '../services/ApiService.js';
+import filterData from '../utils/filterData.js';
 
 // style
 import '../scss/pages/userDashboard.scss';
+import { useEffect, useState } from 'react';
+
+/* -------------------------------------------------------------------------- */
+/*                                  COMPONENT                                 */
+/* -------------------------------------------------------------------------- */
 
 function UserDashboard() {
   const { userId: queryId } = useParams();
+  const [user, setUser] = useState();
+  const [error, setError] = useState();
 
-  function filterData(data, id) {
-    return data.find((user) => user.id ?? user.userId === parseInt(id));
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const user = await apiService.get('user.json');
+        const userData = filterData(user, queryId);
+        setUser(userData);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+    fetchUsers();
+  }, [queryId]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
-  const userData = filterData(usersData, queryId);
-  const userActivity = filterData(usersActivity, queryId);
-  const userSessions = filterData(usersSessions, queryId);
-  const userPerformance = filterData(usersPerformance, queryId);
-  console.log(userData);
-  console.log(userActivity.sessions);
-  console.log(userSessions);
-  console.log(userPerformance);
-  return (
-    <div className="flex_row">
-      <SideBar />
-      <section>
-        <h1>
-          Bonjour <span>{userData.userInfos.firstName}</span>{' '}
-        </h1>
-        <div className="chart-wrapper">
-          <Activity activityData={userActivity.sessions} />
-        </div>
-      </section>
-    </div>
-  );
+  if (user) {
+    return (
+      <div className="flex_row">
+        <SideBar />
+        <section className="dashboard">
+          <h1 className="dashboard__title">
+            Bonjour{' '}
+            <span className="dashboard__title--accent">
+              {user.userInfos.firstName}
+            </span>{' '}
+          </h1>
+          <p className="dashboard__text">
+            Félicitations ! Vous avez explosé vos objectifs hier 👏
+          </p>
+          <div className="chart-wrapper">
+            <Activity queryId={queryId} />
+          </div>
+        </section>
+      </div>
+    );
+  }
 }
 
 export default UserDashboard;
