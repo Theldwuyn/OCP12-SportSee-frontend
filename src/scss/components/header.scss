@@ -1,0 +1,20 @@
+@use '../variables.scss' as v;
+
+.appbar {
+  align-items: center;
+  background-color: black;
+  font-size: 1.5em;
+  font-weight: 500;
+  color: white;
+  height: 91px;
+  box-shadow: 0 4px 4px v.$dropshadow;
+
+  &__logo {
+    margin-left: 28px;
+  }
+
+  &__nav {
+    width: 100%;
+    justify-content: space-around;
+  }
+}

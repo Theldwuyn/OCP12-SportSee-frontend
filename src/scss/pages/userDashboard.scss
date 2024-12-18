@@ -1,0 +1,7 @@
+@use '../variables.scss' as v;
+
+.chart-wrapper {
+  background-color: v.$bg-chart;
+  padding: 40px 20px 20px 20px;
+  border-radius: 5px;
+}
