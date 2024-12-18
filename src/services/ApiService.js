@@ -1,9 +1,10 @@
-const BASE_URL = '../data/mock';
+const BASE_URL = '../../data/mock';
 
 class Api {
   async get(endpoint) {
     const response = await fetch(`${BASE_URL}/${endpoint}`);
-    return this.handleResponse(response);
+    const data = await this.handleResponse(response);
+    return this.normalizeData(data, endpoint);
   }
 
   async handleResponse(response) {
@@ -11,6 +12,38 @@ class Api {
       throw new Error(`API Error: ${response.status} ${response.statusText}`);
     } else {
       return response.json();
+    }
+  }
+
+  normalizeData(data, endpoint) {
+    console.log(endpoint);
+    switch (endpoint) {
+      case 'user.json':
+        return data.map((elem) => {
+          return {
+            id: elem.id,
+            userInfos: elem.userInfos,
+            score: elem.todayScore ?? elem.score,
+            keyData: elem.keyData,
+          };
+        });
+      case 'userPerformance.json':
+        return data.map((elem) => {
+          return {
+            id: elem.userId,
+            kind: elem.kind,
+            data: elem.data,
+          };
+        });
+      case 'userAverageSessions.json':
+        return data.map((elem) => {
+          return {
+            id: elem.userId,
+            sessions: elem.sessions,
+          };
+        });
+      default:
+        return data;
     }
   }
 }
