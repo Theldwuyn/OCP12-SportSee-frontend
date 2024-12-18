@@ -2,6 +2,42 @@
 
 .chart-wrapper {
   background-color: v.$bg-chart;
-  padding: 40px 20px 20px 20px;
+  padding-top: 30px;
+  padding-left: 50px;
   border-radius: 5px;
+  margin-top: 60px;
+  width: 835px;
+  height: 320px;
+  font-weight: 500;
+}
+
+.dashboard {
+  padding: 40px 80px 80px 80px;
+
+  &__title {
+    font-weight: 500;
+    font-size: 3em;
+    margin-bottom: 30px;
+
+    &--accent {
+      color: v.$primary;
+    }
+  }
+
+  &__text {
+    font-size: 1.125em;
+  }
+}
+
+.custom-tooltip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: v.$primary;
+  color: white;
+  font-size: 0.6em;
+  font-weight: 500;
+  padding: 6px 5px;
+  gap: 10px;
 }
