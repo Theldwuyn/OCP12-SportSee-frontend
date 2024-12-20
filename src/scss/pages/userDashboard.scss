@@ -1,14 +1,69 @@
 @use '../variables.scss' as v;
 
-.chart-wrapper {
+.barchart {
+  position: relative;
   background-color: v.$bg-chart;
-  padding-top: 30px;
   padding-left: 50px;
+  padding-top: 30px;
   border-radius: 5px;
   margin-top: 60px;
+  margin-bottom: 30px;
   width: 835px;
   height: 320px;
   font-weight: 500;
+
+  &__title {
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    color: v.$title-chart;
+  }
+}
+
+.linechart {
+  position: relative;
+  background-color: v.$primary;
+  border-radius: 5px;
+  height: 260px;
+  width: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    position: absolute;
+    top: 25px;
+    left: 35px;
+    width: 150px;
+    color: white;
+  }
+}
+
+.chart-title {
+  font-size: 0.938em;
+}
+
+.custom-tooltip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.6em;
+  font-weight: 500;
+  padding: 6px 5px;
+
+  &__barchart {
+    @extend .custom-tooltip;
+    color: white;
+    background-color: v.$primary;
+    gap: 10px;
+  }
+
+  &__linechart {
+    @extend .custom-tooltip;
+    color: black;
+    background-color: white;
+  }
 }
 
 .dashboard {
@@ -27,17 +82,4 @@
   &__text {
     font-size: 1.125em;
   }
-}
-
-.custom-tooltip {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: v.$primary;
-  color: white;
-  font-size: 0.6em;
-  font-weight: 500;
-  padding: 6px 5px;
-  gap: 10px;
 }
