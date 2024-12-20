@@ -11,6 +11,7 @@ import filterData from '../utils/filterData.js';
 // style
 import '../scss/pages/userDashboard.scss';
 import { useEffect, useState } from 'react';
+import AverageSession from '../components/AverageSession.jsx';
 
 /* -------------------------------------------------------------------------- */
 /*                                  COMPONENT                                 */
@@ -52,9 +53,24 @@ function UserDashboard() {
           <p className="dashboard__text">
             Félicitations ! Vous avez explosé vos objectifs hier 👏
           </p>
-          <div className="chart-wrapper">
-            <Activity queryId={queryId} />
-          </div>
+          <section id="charts">
+            <div className="flex-col">
+              <div className="barchart">
+                <h2 className="barchart__title chart-title">
+                  Activité quotidienne
+                </h2>
+                <Activity queryId={queryId} />
+              </div>
+              <div className="flex-row">
+                <div className="linechart">
+                  <h2 className="linechart__title chart-title">
+                    Durée moyenne des sessions
+                  </h2>
+                  <AverageSession queryId={queryId} />
+                </div>
+              </div>
+            </div>
+          </section>
         </section>
       </div>
     );
