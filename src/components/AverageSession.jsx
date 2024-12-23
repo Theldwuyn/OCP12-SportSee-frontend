@@ -15,11 +15,8 @@ import {
 } from 'recharts';
 import PropTypes from 'prop-types';
 
-// style
-import '../scss/components/averageSession.scss';
-
 /* -------------------------------------------------------------------------- */
-/*                              CUSTOM COMPONENT                              */
+/*                                CUSTOMIZATION                               */
 /* -------------------------------------------------------------------------- */
 
 /* eslint-disable react/prop-types */
@@ -30,9 +27,10 @@ component are recharts props, and are implicitly passed to functions */
  * Customize the tooltip by replacing the default value by {value}min
  *
  * This function is passed as value of content prop of the Tooltip component
- * @param {boolean} active
- * @param {object} payload rechart object with all information from the chart
- * @returns
+ * @param {object} props
+ * @param {boolean} props.active
+ * @param {object} props.payload rechart object with all information from the chart
+ * @returns {JSX.Element}
  */
 function CustomToolTip({ active, payload }) {
   if (active && payload && payload.length) {
@@ -54,15 +52,14 @@ function CustomToolTip({ active, payload }) {
  * payload.value as index of the days list
  *
  * This function is passed as value of tick prop of XAxis component
- * @param {number} x x position of the tick
- * @param {number} y y position of the tick
- * @param {object} payload rechart object with all information from the axis
- * @returns
+ * @param {object} props
+ * @param {number} props.x x position of the tick
+ * @param {number} props.y y position of the tick
+ * @param {object} props.payload rechart object with all information from the axis
+ * @returns {JSX.Element}
  */
-function CustomAxisTick({ x, y, payload, index }) {
+function CustomAxisTick({ x, y, index }) {
   const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
-  console.log(payload);
-  console.log(index);
 
   return (
     <g>
