@@ -3,14 +3,15 @@
 .barchart {
   position: relative;
   background-color: v.$bg-chart;
-  padding-left: 50px;
-  padding-top: 30px;
   border-radius: 5px;
   margin-top: 60px;
   margin-bottom: 30px;
   width: 835px;
   height: 320px;
   font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &__title {
     position: absolute;
@@ -39,8 +40,37 @@
   }
 }
 
+.radarchart {
+  background-color: v.$radial-bg;
+  border-radius: 5px;
+  height: 260px;
+  width: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radialbarchart {
+  position: relative;
+  background-color: v.$bg-chart;
+  height: 260px;
+  width: 260px;
+  border-radius: 5px;
+
+  &__title {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    color: v.$title-chart;
+  }
+}
+
 .chart-title {
   font-size: 0.938em;
+}
+
+.space-btw {
+  justify-content: space-between;
 }
 
 .custom-tooltip {
