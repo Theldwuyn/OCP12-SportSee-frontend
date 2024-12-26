@@ -1,10 +1,18 @@
 @use '../variables.scss' as v;
 
+#charts {
+  margin-top: 60px;
+}
+
+.keyDataWrapper {
+  justify-content: space-between;
+  margin-left: 30px;
+}
+
 .barchart {
   position: relative;
   background-color: v.$bg-chart;
   border-radius: 5px;
-  margin-top: 60px;
   margin-bottom: 30px;
   width: 835px;
   height: 320px;
