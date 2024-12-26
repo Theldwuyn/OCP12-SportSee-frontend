@@ -4,7 +4,6 @@
 
 import { useEffect, useState } from 'react';
 import apiService from '../services/ApiService';
-import filterData from '../utils/filterData';
 import {
   Line,
   LineChart,
@@ -82,9 +81,9 @@ function AverageSession({ queryId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await apiService.get('userAverageSessions.json');
-        const sessionData = filterData(data, queryId);
-        setAverageSession(sessionData);
+        const data = await apiService.get(`${queryId}/average-sessions`);
+        //console.log(data);
+        setAverageSession(data);
       } catch (err) {
         setError(err.message);
       }

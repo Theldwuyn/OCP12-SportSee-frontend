@@ -78,6 +78,7 @@ function CustomLabel({ value }) {
 
 function Score({ userData, error }) {
   let ref = useRef(null);
+  console.log(userData);
   const [bgRadius, setBgRadius] = useState(0);
 
   useEffect(() => {
