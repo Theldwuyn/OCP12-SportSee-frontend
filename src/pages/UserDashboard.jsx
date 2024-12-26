@@ -11,10 +11,15 @@ import apiService from '../services/ApiService.js';
 import filterData from '../utils/filterData.js';
 import AverageSession from '../components/AverageSession.jsx';
 import Performance from '../components/Performance.jsx';
+import caloriesIcon from '../assets/calories-icon.svg';
+import proteinIcon from '../assets/protein-icon.svg';
+import carbsIcon from '../assets/carbs-icon.svg';
+import fatIcon from '../assets/fat-icon.svg';
 
 // style
 import '../scss/pages/userDashboard.scss';
 import Score from '../components/Score.jsx';
+import KeyDataCard from '../components/KeyDataCard.jsx';
 
 /* -------------------------------------------------------------------------- */
 /*                                  COMPONENT                                 */
@@ -56,7 +61,7 @@ function UserDashboard() {
           <p className="dashboard__text">
             Félicitations ! Vous avez explosé vos objectifs hier 👏
           </p>
-          <section id="charts">
+          <section id="charts" className="flex_row">
             <div className="flex_col">
               <div className="barchart">
                 <h2 className="barchart__title chart-title">
@@ -79,6 +84,32 @@ function UserDashboard() {
                   <Score userData={user} />
                 </div>
               </div>
+            </div>
+            <div className="flex_col keyDataWrapper">
+              <KeyDataCard
+                dataValue={user.keyData.calorieCount}
+                icon={caloriesIcon}
+                name="calories"
+                unit="kCal"
+              />
+              <KeyDataCard
+                dataValue={user.keyData.proteinCount}
+                icon={proteinIcon}
+                name="protéines"
+                unit="g"
+              />
+              <KeyDataCard
+                dataValue={user.keyData.carbohydrateCount}
+                icon={carbsIcon}
+                name="glucides"
+                unit="g"
+              />
+              <KeyDataCard
+                dataValue={user.keyData.lipidCount}
+                icon={fatIcon}
+                name="lipides"
+                unit="g"
+              />
             </div>
           </section>
         </section>
