@@ -63,24 +63,26 @@ function UserDashboard() {
           </p>
           <section id="charts" className="flex_row">
             <div className="flex_col">
-              <div className="barchart">
-                <h2 className="barchart__title chart-title">
+              <div className="chart__barchart">
+                <h2 className="chart__barchart--title chart__title">
                   Activité quotidienne
                 </h2>
                 <Activity queryId={queryId} />
               </div>
               <div className="flex_row space-btw">
-                <div className="linechart">
-                  <h2 className="linechart__title chart-title">
+                <div className="chart__linechart">
+                  <h2 className="chart__linechart--title chart__title">
                     Durée moyenne des sessions
                   </h2>
                   <AverageSession queryId={queryId} />
                 </div>
-                <div className="radarchart">
+                <div className="chart__radarchart">
                   <Performance queryId={queryId} />
                 </div>
-                <div className="radialbarchart">
-                  <h2 className="radialbarchart__title chart-title">Score</h2>
+                <div className="chart__radialbarchart">
+                  <h2 className="chart__radialbarchart--title chart__title">
+                    Score
+                  </h2>
                   <Score userData={user} />
                 </div>
               </div>
