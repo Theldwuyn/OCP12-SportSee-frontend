@@ -15,7 +15,6 @@ import {
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import apiService from '../services/ApiService';
-import filterData from '../utils/filterData';
 
 // style
 import { primaryColor, secondaryColor, tooltipBg } from '../utils/variable';
@@ -87,9 +86,10 @@ function Activity({ queryId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await apiService.get('userActivity.json');
-        const activityData = filterData(data, queryId);
-        setActivityData(activityData);
+        const data = await apiService.get(`${queryId}/activity`);
+        //const activityData = filterData(data, queryId);
+        console.log(data);
+        setActivityData(data);
       } catch (err) {
         setError(err.message);
       }

@@ -12,7 +12,6 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import apiService from '../services/ApiService';
-import filterData from '../utils/filterData';
 
 // style
 import { radarFill } from '../utils/variable';
@@ -82,9 +81,9 @@ function Performance({ queryId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await apiService.get('userPerformance.json');
-        const performanceData = filterData(data, queryId);
-        setPerformanceData(performanceData);
+        const data = await apiService.get(`${queryId}/performance`);
+        //const performanceData = filterData(data, queryId);
+        setPerformanceData(data);
       } catch (err) {
         setError(err.message);
       }

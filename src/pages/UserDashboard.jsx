@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import SideBar from '../components/SideBar.jsx';
 import Activity from '../components/Activity.jsx';
 import apiService from '../services/ApiService.js';
-import filterData from '../utils/filterData.js';
+//import filterData from '../utils/filterData.js';
 import AverageSession from '../components/AverageSession.jsx';
 import Performance from '../components/Performance.jsx';
 import caloriesIcon from '../assets/calories-icon.svg';
@@ -33,9 +33,9 @@ function UserDashboard() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const user = await apiService.get('user.json');
-        const userData = filterData(user, queryId);
-        setUser(userData);
+        const user = await apiService.get(`${queryId}`);
+        console.log(user);
+        setUser(user);
       } catch (err) {
         setError(err.message);
       }
