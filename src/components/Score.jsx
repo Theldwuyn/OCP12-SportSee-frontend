@@ -17,6 +17,7 @@ import {
   radialChartSecondaryColor,
   secondaryColor,
 } from '../utils/variable';
+import useWindowWidth from '../utils/customHooks/useWindowWidth';
 
 /* -------------------------------------------------------------------------- */
 /*                                CUSTOMIZATION                               */
@@ -38,16 +39,17 @@ function CustomLabel({ value }) {
         x={'50%'}
         y={'50%'}
         textAnchor="middle"
-        style={{ fontSize: 26, fontWeight: 'bold', fill: secondaryColor }}
+        style={{ fontSize: 20, fontWeight: 'bold', fill: secondaryColor }}
       >
         {`${value * 100}%`}
       </text>
       <text
         x={'50%'}
-        y={'58%'}
+        y={'50%'}
+        dy={12}
         textAnchor="middle"
         style={{
-          fontSize: 16,
+          fontSize: 10,
           fontWeight: 500,
           fill: radialChartSecondaryColor,
         }}
@@ -56,10 +58,11 @@ function CustomLabel({ value }) {
       </text>
       <text
         x={'50%'}
-        y={'66%'}
+        y={'50%'}
+        dy={24}
         textAnchor="middle"
         style={{
-          fontSize: 16,
+          fontSize: 10,
           fontWeight: 500,
           fill: radialChartSecondaryColor,
         }}
@@ -80,6 +83,7 @@ function Score({ userData, error }) {
   let ref = useRef(null);
   console.log(userData);
   const [bgRadius, setBgRadius] = useState(0);
+  const windowWidth = useWindowWidth();
 
   useEffect(() => {
     // Recharts component are virtual component, they render an SVG path, and
@@ -94,7 +98,7 @@ function Score({ userData, error }) {
       }
     }, 200);
     return () => clearTimeout(timer);
-  }, []);
+  }, [windowWidth]);
 
   if (error) {
     return <p>Score: {error}</p>;
@@ -104,8 +108,8 @@ function Score({ userData, error }) {
     <ResponsiveContainer width={'100%'} height={'100%'}>
       <RadialBarChart
         data={[userData]}
-        innerRadius={'70%'}
-        outerRadius={'80%'}
+        innerRadius={'60%'}
+        outerRadius={'70%'}
         barSize={10}
         startAngle={90}
         endAngle={450}

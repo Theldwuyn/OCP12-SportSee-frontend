@@ -1,6 +1,6 @@
 [
   {
-    "userId": 12,
+    "id": 12,
     "sessions": [
       {
         "day": 1,
@@ -33,7 +33,7 @@
     ]
   },
   {
-    "userId": 18,
+    "id": 18,
     "sessions": [
       {
         "day": 1,
