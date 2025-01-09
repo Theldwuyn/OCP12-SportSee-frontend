@@ -1,6 +1,6 @@
 [
   {
-    "userId": 12,
+    "id": 12,
     "kind": {
       "1": "cardio",
       "2": "energy",
@@ -37,7 +37,7 @@
     ]
   },
   {
-    "userId": 18,
+    "id": 18,
     "kind": {
       "1": "cardio",
       "2": "energy",
