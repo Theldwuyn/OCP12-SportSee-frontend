@@ -1,7 +1,7 @@
 @use '../variables.scss' as v;
 
 .keyDataCard {
-  padding: 32px 32px;
+  padding: 0 32px;
   background-color: v.$bg-chart;
   border-radius: 5px;
   align-items: center;
