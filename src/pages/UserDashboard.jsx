@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import SideBar from '../components/SideBar.jsx';
 import Activity from '../components/Activity.jsx';
 import apiService from '../services/ApiService.js';
-//import filterData from '../utils/filterData.js';
+import filterData from '../utils/filterData.js';
 import AverageSession from '../components/AverageSession.jsx';
 import Performance from '../components/Performance.jsx';
 import caloriesIcon from '../assets/calories-icon.svg';
@@ -33,9 +33,15 @@ function UserDashboard() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const user = await apiService.get(`${queryId}`);
-        console.log(user);
-        setUser(user);
+        if (apiService.isMockedData) {
+          const users = await apiService.get('user.json');
+          const user = filterData(users, queryId);
+          setUser(user);
+        } else {
+          const user = await apiService.get(`${queryId}`);
+          console.log(user);
+          setUser(user);
+        }
       } catch (err) {
         setError(err.message);
       }
@@ -49,7 +55,7 @@ function UserDashboard() {
 
   if (user) {
     return (
-      <div className="flex_row">
+      <div className="main_wrapper">
         <SideBar />
         <section className="dashboard">
           <h1 className="dashboard__title">
@@ -61,33 +67,29 @@ function UserDashboard() {
           <p className="dashboard__text">
             Félicitations ! Vous avez explosé vos objectifs hier 👏
           </p>
-          <section id="charts" className="flex_row">
-            <div className="flex_col">
-              <div className="chart__barchart">
-                <h2 className="chart__barchart--title chart__title">
-                  Activité quotidienne
-                </h2>
-                <Activity queryId={queryId} />
-              </div>
-              <div className="flex_row space-btw">
-                <div className="chart__linechart">
-                  <h2 className="chart__linechart--title chart__title">
-                    Durée moyenne des sessions
-                  </h2>
-                  <AverageSession queryId={queryId} />
-                </div>
-                <div className="chart__radarchart">
-                  <Performance queryId={queryId} />
-                </div>
-                <div className="chart__radialbarchart">
-                  <h2 className="chart__radialbarchart--title chart__title">
-                    Score
-                  </h2>
-                  <Score userData={user} />
-                </div>
-              </div>
+          <section id="charts" className="chart_wrapper">
+            <div className="chart__barchart">
+              <h2 className="chart__barchart--title chart__title">
+                Activité quotidienne
+              </h2>
+              <Activity queryId={queryId} />
             </div>
-            <div className="flex_col keyDataWrapper">
+            <div className="chart__linechart">
+              <h2 className="chart__linechart--title chart__title">
+                Durée moyenne des sessions
+              </h2>
+              <AverageSession queryId={queryId} />
+            </div>
+            <div className="chart__radarchart">
+              <Performance queryId={queryId} />
+            </div>
+            <div className="chart__radialbarchart">
+              <h2 className="chart__radialbarchart--title chart__title">
+                Score
+              </h2>
+              <Score userData={user} />
+            </div>
+            <div className="keyDataWrapper">
               <KeyDataCard
                 dataValue={user.keyData.calorieCount}
                 icon={caloriesIcon}
