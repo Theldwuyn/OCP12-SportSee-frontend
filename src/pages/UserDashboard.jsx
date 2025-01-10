@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom';
 import SideBar from '../components/SideBar.jsx';
 import Activity from '../components/Activity.jsx';
 import apiService from '../services/ApiService.js';
-import filterData from '../utils/filterData.js';
 import AverageSession from '../components/AverageSession.jsx';
 import Performance from '../components/Performance.jsx';
 import caloriesIcon from '../assets/calories-icon.svg';
@@ -34,8 +33,8 @@ function UserDashboard() {
     const fetchUsers = async () => {
       try {
         if (apiService.isMockedData) {
-          const users = await apiService.get('user.json');
-          const user = filterData(users, queryId);
+          const user = await apiService.getMocked('user.json', queryId);
+          //const user = filterData(users, queryId);
           setUser(user);
         } else {
           const user = await apiService.get(`${queryId}`);

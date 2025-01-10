@@ -13,7 +13,6 @@ import {
   YAxis,
 } from 'recharts';
 import PropTypes from 'prop-types';
-import filterData from '../utils/filterData';
 
 /* -------------------------------------------------------------------------- */
 /*                                CUSTOMIZATION                               */
@@ -83,9 +82,12 @@ function AverageSession({ queryId }) {
     const fetchData = async () => {
       try {
         if (apiService.isMockedData) {
-          const data = await apiService.get('userAverageSessions.json');
-          const sessionData = filterData(data, queryId);
-          setAverageSession(sessionData);
+          const data = await apiService.getMocked(
+            'userAverageSessions.json',
+            queryId,
+          );
+          //const sessionData = filterData(data, queryId);
+          setAverageSession(data);
         } else {
           const data = await apiService.get(`${queryId}/average-sessions`);
           setAverageSession(data);

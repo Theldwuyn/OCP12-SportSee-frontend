@@ -15,7 +15,6 @@ import {
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import apiService from '../services/ApiService';
-import filterData from '../utils/filterData';
 
 // style
 import { primaryColor, secondaryColor, tooltipBg } from '../utils/variable';
@@ -88,9 +87,9 @@ function Activity({ queryId }) {
     const fetchData = async () => {
       try {
         if (apiService.isMockedData) {
-          const data = await apiService.get('userActivity.json');
-          const activityData = filterData(data, queryId);
-          setActivityData(activityData);
+          const data = await apiService.getMocked('userActivity.json', queryId);
+          //const activityData = filterData(data, queryId);
+          setActivityData(data);
         } else {
           const data = await apiService.get(`${queryId}/activity`);
           console.log(data);

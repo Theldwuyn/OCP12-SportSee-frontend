@@ -1,3 +1,5 @@
+import filterData from '../utils/filterData';
+
 const BASE_URL = 'http://localhost:3000/user/';
 const BASE_MOCKED_URL = '../../data/mock';
 
@@ -13,20 +15,25 @@ class Api {
         handler: this.normalizeActivityAndAverageData,
       },
     ];
+    this.mockedRoutes = [
+      { path: 'user.json', handler: this.normalizeUserData },
+      {
+        path: 'userActivity.json',
+        handler: this.normalizeActivityAndAverageData,
+      },
+      {
+        path: 'userAverageSessions.json',
+        handler: this.normalizeActivityAndAverageData,
+      },
+      { path: 'userPerformance.json', handler: this.normalizePerformanceData },
+    ];
   }
 
   async get(endpoint) {
-    if (this.isMockedData) {
-      console.log('mocked data');
-      const response = await fetch(`${BASE_MOCKED_URL}/${endpoint}`);
-      const data = await this.handleResponse(response);
-      return data;
-    } else {
-      console.log('api data');
-      const response = await fetch(`${BASE_URL}${endpoint}`);
-      const data = await this.handleResponse(response);
-      return this.normalizeData(data, endpoint);
-    }
+    console.log('api data');
+    const response = await fetch(`${BASE_URL}${endpoint}`);
+    const data = await this.handleResponse(response);
+    return this.normalizeData(data, endpoint);
   }
 
   async handleResponse(response) {
@@ -35,6 +42,30 @@ class Api {
     } else {
       return response.json();
     }
+  }
+
+  async getMocked(endpoint, id) {
+    const response = await fetch(`${BASE_MOCKED_URL}/${endpoint}`);
+    const dataToNormalize = await this.handleMockedResponse(response, id);
+    const data = { data: dataToNormalize };
+    console.log('data', data);
+    return this.normalizeMockedData(data, endpoint);
+  }
+
+  async handleMockedResponse(response, id) {
+    if (!response.ok) {
+      throw new Error(`Fetch Error: ${response.status} ${response.statusText}`);
+    } else {
+      const responseToFilter = await response.json();
+      console.log('response', responseToFilter);
+      const data = filterData(responseToFilter, id);
+      return data;
+    }
+  }
+
+  normalizeMockedData(data, endpoint) {
+    const route = this.mockedRoutes.find((elem) => elem.path === endpoint);
+    return route ? route.handler(data) : data.data;
   }
 
   normalizeData(data, endpoint) {

@@ -15,7 +15,6 @@ import apiService from '../services/ApiService';
 
 // style
 import { radarFill } from '../utils/variable';
-import filterData from '../utils/filterData';
 
 /* -------------------------------------------------------------------------- */
 /*                                CUSTOMIZATION                               */
@@ -83,9 +82,12 @@ function Performance({ queryId }) {
     const fetchData = async () => {
       try {
         if (apiService.isMockedData) {
-          const data = await apiService.get('userPerformance.json');
-          const perfData = filterData(data, queryId);
-          setPerformanceData(perfData);
+          const data = await apiService.getMocked(
+            'userPerformance.json',
+            queryId,
+          );
+          //const perfData = filterData(data, queryId);
+          setPerformanceData(data);
         } else {
           const data = await apiService.get(`${queryId}/performance`);
           setPerformanceData(data);
